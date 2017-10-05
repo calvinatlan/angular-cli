@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular-cli.git"
+    "url": "https://github.com/calvinatlan/angular-cli.git"
   },
   "engines": {
     "node": ">= 6.9.0",
@@ -37,9 +37,9 @@
   "author": "Angular Authors",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/angular/angular-cli/issues"
+    "url": "https://github.com/calvinatlan/angular-cli/issues"
   },
-  "homepage": "https://github.com/angular/angular-cli",
+  "homepage": "https://github.com/calvinatlan/angular-cli",
   "dependencies": {
     "@angular-devkit/build-optimizer": "~0.0.18",
     "@angular-devkit/schematics": "0.0.25",
@@ -93,7 +93,7 @@
     "typescript": "~2.4.2",
     "uglifyjs-webpack-plugin": "1.0.0-beta.1",
     "url-loader": "^0.5.7",
-    "webpack": "~3.5.5",
+    "webpack": "github:calvinatlan/webpack#salesforceChunkLoad",
     "webpack-concat-plugin": "1.4.0",
     "webpack-dev-middleware": "~1.12.0",
     "webpack-dev-server": "~2.7.1",
