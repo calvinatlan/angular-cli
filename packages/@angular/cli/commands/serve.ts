@@ -135,6 +135,9 @@ const ServeCommand = Command.extend({
       commandOptions.vendorChunk = !commandOptions.buildOptimizer;
     }
 
+    // Default evalSourcemaps to true for serve. This makes rebuilds faster.
+    commandOptions.evalSourcemaps = true;
+
     return checkPort(commandOptions.port, commandOptions.host, defaultPort)
       .then(port => {
         commandOptions.port = port;

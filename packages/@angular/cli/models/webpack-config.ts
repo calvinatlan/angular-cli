@@ -1,3 +1,4 @@
+import { readTsconfig } from '../utilities/read-tsconfig';
 const webpackMerge = require('webpack-merge');
 import { CliConfig } from './config';
 import { BuildOptions } from './build-options';
@@ -12,12 +13,12 @@ import {
   getAotConfig
 } from './webpack-configs';
 import * as path from 'path';
-import { AngularCompilerPlugin } from '@ngtools/webpack';
 
 export interface WebpackConfigOptions<T extends BuildOptions = BuildOptions> {
   projectRoot: string;
   buildOptions: T;
   appConfig: any;
+  tsConfig: any;
 }
 
 export class NgCliWebpackConfig<T extends BuildOptions = BuildOptions> {
@@ -34,7 +35,10 @@ export class NgCliWebpackConfig<T extends BuildOptions = BuildOptions> {
     buildOptions = this.addTargetDefaults(buildOptions);
     buildOptions = this.mergeConfigs(buildOptions, appConfig, projectRoot);
 
-    this.wco = { projectRoot, buildOptions, appConfig };
+    const tsconfigPath = path.resolve(projectRoot, appConfig.root, appConfig.tsconfig);
+    const tsConfig = readTsconfig(tsconfigPath);
+
+    this.wco = { projectRoot, buildOptions, appConfig, tsConfig };
   }
 
   public buildConfig() {
@@ -78,10 +82,6 @@ export class NgCliWebpackConfig<T extends BuildOptions = BuildOptions> {
     if (buildOptions.buildOptimizer
       && !(buildOptions.aot || buildOptions.target === 'production')) {
       throw new Error('The `--build-optimizer` option cannot be used without `--aot`.');
-    }
-
-    if (buildOptions.experimentalAngularCompiler && !AngularCompilerPlugin.isSupported()) {
-      throw new Error('You need Angular 5 and up to use --experimental-angular-compiler.');
     }
   }
 
